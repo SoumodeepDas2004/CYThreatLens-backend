@@ -18,3 +18,17 @@ class Scan(Base):
     threat_score = Column(Integer)
     risk_level = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
+    
+from sqlalchemy import Column, Integer, String, DateTime
+from datetime import datetime
+
+class FileScan(Base):
+    __tablename__ = "file_scans"
+
+    id = Column(Integer, primary_key=True, index=True)
+    hash = Column(String, index=True)
+    malicious = Column(Integer)
+    suspicious = Column(Integer)
+    harmless = Column(Integer)
+    risk_level = Column(String)
+    created_at = Column(DateTime, default=datetime.utcnow)

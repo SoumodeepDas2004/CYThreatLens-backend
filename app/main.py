@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.database import engine, Base
 from app import models  
-from app.routers import scan,news
+from app.routers import scan,news,soc
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -17,6 +17,7 @@ Base.metadata.create_all(bind=engine)
 
 app.include_router(scan.router)
 app.include_router(news.router)
+app.include_router(soc.router)
 @app.get("/")
 def root():
     return {"message": "CYThreatLens backend running"}
