@@ -1,22 +1,31 @@
 import time
 from fastapi import APIRouter
-from app.services.news_collector import fetch_news_events, news_cache
+from app.services.news_collector import fetch_news_events
+from app.services.telegram_collector import fetch_telegram_messages
 
-router = APIRouter(prefix="/intel")
+router = APIRouter(prefix="/intel", tags=["Intel Map"])
 
-CACHE_TTL = 600  # 10 minutes
+CACHE_TTL = 600
 
+cache = {
+    "events": [],
+    "last_update": 0
+}
 
 @router.get("/events")
-def get_intel_events():
+async def get_intel_events():
 
     now = time.time()
 
-    if now - news_cache["last_update"] > CACHE_TTL:
+    if now - cache["last_update"] < CACHE_TTL:
+        return cache["events"]
 
-        events = fetch_news_events()
+    news_events = fetch_news_events()
+    telegram_events = await fetch_telegram_messages()
 
-        news_cache["events"] = events
-        news_cache["last_update"] = now
+    events = news_events + telegram_events
 
-    return news_cache["events"]
+    cache["events"] = events
+    cache["last_update"] = now
+
+    return events
