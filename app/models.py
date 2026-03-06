@@ -32,3 +32,16 @@ class FileScan(Base):
     harmless = Column(Integer)
     risk_level = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
+    
+    
+class IntelEvent(Base):
+    __tablename__ = "intel_events"
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+    source = Column(String)
+    country = Column(String)
+    latitude = Column(Float)
+    longitude = Column(Float)
+    category = Column(String)
+    created_at = Column(DateTime, default=datetime.utcnow)
