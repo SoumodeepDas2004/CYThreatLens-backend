@@ -46,11 +46,19 @@ async def fetch_telegram_messages():
                 if message.text:
                     #print("RAW MESSAGE:", message.text)
                     # print("collecting new data from telegram")
+                    post_url = f"https://t.me/{channel}/{message.id}"
+
                     event = extract_event({
                         "title": message.text,
                         "source": channel,
+                        "url": post_url,
                         "date": message.date.isoformat()
                     })
+                    # event = extract_event({
+                    #     "title": message.text,
+                    #     "source": channel,
+                    #     "date": message.date.isoformat()
+                    # })
                     # print("Collected returning data")
                     if event:
                         results.append(event)
