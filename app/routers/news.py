@@ -132,6 +132,10 @@ RSS_FEEDS = [
 
 @router.get("/rss")
 def get_rss_news():
+    now = time.time()
+
+    if cache["rss"] and now - cache["last_update"] < CACHE_TTL:
+        return cache["rss"]
 
     news = []
 

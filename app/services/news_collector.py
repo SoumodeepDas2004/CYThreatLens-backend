@@ -29,5 +29,7 @@ def fetch_news_events():
 
             if event:
                 events.append(event)
-
+    news_cache["events"]=events
     return events
+def fetch_saved_news():
+    return news_cache["events"]

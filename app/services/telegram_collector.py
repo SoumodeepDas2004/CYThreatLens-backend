@@ -2,6 +2,7 @@ from telethon import TelegramClient
 import os
 import time
 from app.services.event_extractor import extract_event
+from datetime import datetime, timedelta,timezone
 
 api_id = int(os.getenv("TELE_CLND_ID"))
 api_hash = os.getenv("TELE_HASH")
@@ -43,11 +44,15 @@ async def fetch_telegram_messages():
 
             async for message in client.iter_messages(channel, limit=5):
 
+                
+
                 if message.text:
                     #print("RAW MESSAGE:", message.text)
                     # print("collecting new data from telegram")
                     post_url = f"https://t.me/{channel}/{message.id}"
-
+                    # if message.date < datetime.utcnow() - timedelta(days=2):
+                    if message.date < datetime.now(timezone.utc) - timedelta(days=2):
+                        continue
                     event = extract_event({
                         "title": message.text,
                         "source": channel,
@@ -67,3 +72,7 @@ async def fetch_telegram_messages():
     telegram_cache["last_update"] = now
     print("Collected returning data")
     return results
+
+async def fetch_telegram_savedmessages():
+    if(telegram_cache["data"]):return telegram_cache["data"]
+    return []

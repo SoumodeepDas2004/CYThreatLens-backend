@@ -13,6 +13,7 @@ venv/
 # Environment variables
 .env
 cythreatlens_session.session
+*.session-journal
 
 # =========================
 # IDE / Editor
