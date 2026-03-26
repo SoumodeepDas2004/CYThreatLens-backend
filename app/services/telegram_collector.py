@@ -12,7 +12,7 @@ channels = [
     "intelslava","osintdefender",
     "CIG_telegram","geopolitics_prime",
     "cybersecuritynews","ctinow",
-    
+    "cyintel01"
 ]
 
 CACHE_TTL = 600  # 10 minutes
