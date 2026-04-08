@@ -5,14 +5,22 @@ from app.routers import scan,news,soc,telegram,news_intel,email_analyzer
 from fastapi.middleware.cors import CORSMiddleware
 
 
+origins = [
+    "https://cy-threat-lens-frontend.vercel.app",
+    "http://localhost:5173"
+]
+
 app = FastAPI(title="CYThreatLens API")
 app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["https://cy-threat-lens-frontend.vercel.app"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+from fastapi.middleware.cors import CORSMiddleware
+
+
 # https://cy-threat-lens-frontend.vercel.app/
 try:
     Base.metadata.create_all(bind=engine)
