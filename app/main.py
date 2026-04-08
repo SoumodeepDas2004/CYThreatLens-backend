@@ -13,8 +13,12 @@ app.add_middleware(
         allow_methods=["*"],
         allow_headers=["*"],
     )
-Base.metadata.create_all(bind=engine)
-
+# https://cy-threat-lens-frontend.vercel.app/
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print("DB connection failed:", e)
+    
 app.include_router(scan.router)
 app.include_router(news.router)
 app.include_router(soc.router)
