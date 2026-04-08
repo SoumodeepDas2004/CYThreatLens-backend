@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from app.database import engine, Base
 from app import models  
-from app.routers import scan,news,soc
+from app.routers import scan,news,soc,telegram,news_intel,email_analyzer
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import telegram
-from app.routers import news_intel
+
+
 app = FastAPI(title="CYThreatLens API")
 app.add_middleware(
         CORSMiddleware,
@@ -20,6 +20,7 @@ app.include_router(news.router)
 app.include_router(soc.router)
 app.include_router(telegram.router)
 app.include_router(news_intel.router)
+app.include_router(email_analyzer.router)
 @app.get("/")
 def root():
     return {"message": "CYThreatLens backend running"}
