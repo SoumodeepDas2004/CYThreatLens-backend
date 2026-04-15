@@ -33,6 +33,6 @@ app.include_router(soc.router)
 app.include_router(telegram.router)
 app.include_router(news_intel.router)
 app.include_router(email_analyzer.router)
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def root():
     return {"message": "CYThreatLens backend running"}
